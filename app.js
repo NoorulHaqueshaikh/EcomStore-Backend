@@ -19,23 +19,28 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
-app.use(cookieParser())
+app.use(cookieParser());
 connectDB();
 
-app.use(cors({ origin: 'https://ecom-store-sandy.vercel.app', credentials: true})); //
+app.use(cors({
+  origin: 'https://ecom-store-sandy.vercel.app',
+  credentials: true
+}));
 
+// ✅ Needed for Google Auth without sessions
+app.use(passport.initialize());
 
-app.use(signup)
-app.use(login)
-app.use(product)
-app.use(footer)
-app.use(logout)
-app.use(wishlist)
-app.use(cart)
-app.use(address)
-app.use(order)
+app.use(signup);
+app.use(login);
+app.use(product);
+app.use(footer);
+app.use(logout);
+app.use(wishlist);
+app.use(cart);
+app.use(address);
+app.use(order);
 
-PORT = process.env.PORT || 3000 ;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`server running at http://localhost:${PORT}`)
-})
+    console.log(`server running at http://localhost:${PORT}`);
+});
