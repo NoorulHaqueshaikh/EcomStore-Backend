@@ -77,7 +77,7 @@ router.get(
     });
 
     // redirect to frontend with token
-    res.redirect(`http://localhost:5173/auth/login?token=${token}`);
+    res.redirect(`https://ecom-store-sandy.vercel.app/auth/login?token=${token}`);
   }
 );
 
