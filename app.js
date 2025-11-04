@@ -29,8 +29,6 @@ app.use(cors({
 
 // ✅ Needed for Google Auth without sessions
 app.use(passport.initialize());
-app.use(cookieParser());
-app.set("trust proxy", 1); // ✅ needed for Render + cookies
 
 
 app.use(signup);
