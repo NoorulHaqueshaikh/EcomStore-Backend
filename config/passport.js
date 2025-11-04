@@ -1,9 +1,7 @@
-// backend/config/passport.js
-
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const dotenv = require("dotenv");
-const User = require("../models/users"); // make sure your file is 'users.js'
+const User = require("../models/users");
 
 dotenv.config();
 
@@ -18,27 +16,31 @@ passport.use(
       try {
         const email = profile.emails[0].value;
 
-        // check if user exists
         let user = await User.findOne({ email });
-        console.log("user exists",user)
-        // console.log("user exists:",user)
-        // if user doesn't exist, create a new one
+
         if (!user) {
-          usercreated = await User.create({
+          user = await User.create({
             googleId: profile.id,
             name: profile.displayName,
             email: email,
           });
-          console.log("user created", usercreated)
-        //   console.log("user created:", usercreated)
         }
 
-        done(null, user);
+        return done(null, user);
       } catch (err) {
-        done(err, null);
+        return done(err, null);
       }
     }
   )
 );
+
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser(async (id, done) => {
+  const user = await User.findById(id);
+  done(null, user);
+});
 
 module.exports = passport;
