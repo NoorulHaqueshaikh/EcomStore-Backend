@@ -42,7 +42,8 @@ router.post("/auth/loginuser", async (req,res) => {
     res.cookie("token", token, {
       httpOnly: true,      // not accessible by JS
       secure: true,       // set true if using HTTPS
-      sameSite: 'none'      // allows cross-origin on localhost
+      sameSite: 'none',      // allows cross-origin on localhost
+      maxAge: 7 * 24 * 60 * 60 * 1000
     });
 
     // Send response
@@ -73,7 +74,8 @@ router.get(
     res.cookie("token", token, {
       httpOnly: true,      // not accessible by JS
       secure: true,       // set true if using HTTPS
-      sameSite: 'none'      // allows cross-origin on localhost
+      sameSite: 'none',      // allows cross-origin on localhost
+      maxAge: 7 * 24 * 60 * 60 * 1000 // it will make cookies alive after browser close.
     });
 
     // redirect to frontend with token
