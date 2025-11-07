@@ -30,6 +30,9 @@ app.use(cors({
 // ✅ Needed for Google Auth without sessions
 app.use(passport.initialize());
 
+app.get("/", (req, res) => { // for uptime robot.
+  res.send("Backend is awake 🚀");
+});
 
 app.use(signup);
 app.use(login);
